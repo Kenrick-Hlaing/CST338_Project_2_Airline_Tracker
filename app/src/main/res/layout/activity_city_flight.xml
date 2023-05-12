@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CityFlightActivity">
+
+    <TextView
+        android:id="@+id/cityFlightBanner"
+        android:layout_width="350dp"
+        android:layout_height="47dp"
+        android:gravity="center"
+        android:text="@string/flight_booking_page"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.036" />
+
+    <TextView
+        android:id="@+id/cityFlightArrivingTitle"
+        android:layout_width="190dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="@string/arrivals"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/cityFlightArrivingDisplay"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/cityFlightArrivingDisplay"
+        android:layout_width="190dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="60dp"
+        android:gravity="top"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.228" />
+
+    <TextView
+        android:id="@+id/cityFlightDepartingTitle"
+        android:layout_width="190dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="@string/departures"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/cityFlightDepartingDisplay"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/cityFlightDepartingDisplay"
+        android:layout_width="190dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="60dp"
+        android:gravity="top"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.228" />
+
+    <TextView
+        android:id="@+id/cityFlightMessageDisplay"
+        android:layout_width="224dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="@string/sign_in_message_text"
+        android:textColor="#f00"
+        android:textSize="16sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/cityFlightBackButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+    <EditText
+        android:id="@+id/cityFlightFlightNumber"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="28dp"
+        android:gravity="center"
+        android:hint="@string/enter_flight_number"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/cityFlightBookingQuantity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/cityFlightBookingQuantity"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:inputType="number"
+        android:hint="@string/enter_number_of_bookings"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/cityFlightBookButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/cityFlightBookButton"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/book_flight"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/cityFlightMessageDisplay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/cityFlightBackButton"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/back"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
