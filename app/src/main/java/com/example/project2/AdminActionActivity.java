@@ -79,37 +79,28 @@ public class AdminActionActivity extends AppCompatActivity {
         // Extra from the intent
         String currentUsername = getIntent().getStringExtra(ADMIN_ACTION_ACTIVITY_USER);
         // Add onClickListener for Back Button
-        mAdminActionBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = LandingActivity.getIntent(getApplicationContext(), currentUsername);
-                startActivity(intent);
-            }
+        mAdminActionBackButton.setOnClickListener(view -> {
+            Intent intent = LandingActivity.getIntent(getApplicationContext(), currentUsername);
+            startActivity(intent);
         });
 
         // Add onClickListener for Edit Flight Button
-        mAdminActionEditButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Make a function for Editing a Flight, pass in the string in mAdminActionEditFlight
-                String flightNumber = mAdminActionEditFlight.getText().toString();
-                if(editFlight(flightNumber)){
-                    // pass the currentUsername into an extra
-                    // pass the flight id or the flight number into an extra for an intent
-                    // TODO Go to the edit flight page
-                    Intent intent = EditFlightActivity.getIntent(getApplicationContext(), currentUsername, flightNumber);
-                    startActivity(intent);
-                }
+        mAdminActionEditButton.setOnClickListener(view -> {
+            // Make a function for Editing a Flight, pass in the string in mAdminActionEditFlight
+            String flightNumber = mAdminActionEditFlight.getText().toString();
+            if(editFlight(flightNumber)){
+                // pass the currentUsername into an extra
+                // pass the flight id or the flight number into an extra for an intent
+                // Go to the edit flight page
+                Intent intent = EditFlightActivity.getIntent(getApplicationContext(), currentUsername, flightNumber);
+                startActivity(intent);
             }
         });
 
         // Add onClickListener for Add Flight Button
-        mAdminActionAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = AddFlightActivity.getIntent(getApplicationContext(), currentUsername);
-                startActivity(intent);
-            }
+        mAdminActionAddButton.setOnClickListener(view -> {
+            Intent intent = AddFlightActivity.getIntent(getApplicationContext(), currentUsername);
+            startActivity(intent);
         });
     }
 
@@ -131,10 +122,6 @@ public class AdminActionActivity extends AppCompatActivity {
         return false;
     }
 
-    public static Intent getIntent(Context context){
-        Intent intent = new Intent(context, AdminActionActivity.class);
-        return intent;
-    }
 
     public static Intent getIntent(Context context, String username){
         Intent intent = new Intent(context, AdminActionActivity.class);

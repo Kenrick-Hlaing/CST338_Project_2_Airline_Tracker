@@ -60,19 +60,11 @@ public class SignUpActivity extends AppCompatActivity {
                 .build()
                 .UserDAO();
 
-        mSuSignUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SignUp();
-            }
-        });
+        mSuSignUpButton.setOnClickListener(view -> SignUp());
 
-        mSignUpBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = MainActivity.getIntent(getApplicationContext());
-                startActivity(intent);
-            }
+        mSignUpBackButton.setOnClickListener(view -> {
+            Intent intent = MainActivity.getIntent(getApplicationContext());
+            startActivity(intent);
         });
     }
 
@@ -126,7 +118,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public static Intent getIntent(Context context){
-        Intent intent = new Intent(context, SignUpActivity.class);
-        return intent;
+        return new Intent(context, SignUpActivity.class);
     }
 }

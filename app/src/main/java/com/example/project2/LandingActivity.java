@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -84,14 +83,7 @@ public class LandingActivity extends AppCompatActivity {
         // Find the Current User based on the currentUsername
         String currentUsername = getIntent().getStringExtra(LANDING_ACTIVITY_USER);
         mCurrentUser = mLandingUserDAO.getUserByUsername(currentUsername);
-//        for(User user : mUserList){
-//            if(user.getUsername().equals(currentUsername)){
-//                mLandingMessageDisplay.setText(currentUsername);
-//                mLandingMessageDisplay.setVisibility(View.VISIBLE);
-//                mCurrentUser = user;
-//                break;
-//            }
-//        }
+
 
         refreshDisplay();
 
@@ -101,29 +93,23 @@ public class LandingActivity extends AppCompatActivity {
             mLandingAdminButton.setVisibility(View.VISIBLE);
         }
 
-        mLandingAdminButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = AdminActionActivity.getIntent(getApplicationContext(), currentUsername);
-                startActivity(intent);
-            }
+        mLandingAdminButton.setOnClickListener(view -> {
+            Intent intent = AdminActionActivity.getIntent(getApplicationContext(), currentUsername);
+            startActivity(intent);
         });
 
         // Add a onClickListener for Book Button
-        mLandingBookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Pass currentUsername into the extra
-                // Update all flights to isFull if capacity is 200
-                List<Flight> mFlightList = mLandingFlightDAO.getFlights();
-                for(Flight flight : mFlightList){
-                    if(flight.getCapacity() == 200){
-                        mLandingFlightDAO.updateFlightAvailability(flight.getFlightId(), 1);
-                    }
+        mLandingBookButton.setOnClickListener(view -> {
+            // Pass currentUsername into the extra
+            // Update all flights to isFull if capacity is 200
+            List<Flight> mFlightList = mLandingFlightDAO.getFlights();
+            for(Flight flight : mFlightList){
+                if(flight.getCapacity() == 200){
+                    mLandingFlightDAO.updateFlightAvailability(flight.getFlightId(), 1);
                 }
-                Intent intent = BookFlightActivity.getIntent(getApplicationContext(), currentUsername);
-                startActivity(intent);
             }
+            Intent intent = BookFlightActivity.getIntent(getApplicationContext(), currentUsername);
+            startActivity(intent);
         });
     }
 
@@ -144,30 +130,19 @@ public class LandingActivity extends AppCompatActivity {
             alertBuilder.setMessage("Log Out User?");
 
             alertBuilder.setPositiveButton("Yes",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Intent intent = MainActivity.getIntent(getApplicationContext());
-                            startActivity(intent);
-                        }
+                    (dialogInterface, i) -> {
+                        Intent intent = MainActivity.getIntent(getApplicationContext());
+                        startActivity(intent);
                     });
 
             alertBuilder.setNegativeButton("No",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            // something, don't log out
-                            toastMaker("You're Still Here?");
-                        }
+                    (dialogInterface, i) -> {
+                        // something, don't log out
+                        toastMaker("You're Still Here?");
                     });
 
             alertBuilder.setCancelable(true);
-            alertBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialogInterface) {
-                    toastMaker("You're Still Here?");
-                }
-            });
+            alertBuilder.setOnCancelListener(dialogInterface -> toastMaker("You're Still Here?"));
 
             alertBuilder.create().show();
             return true;
@@ -178,42 +153,31 @@ public class LandingActivity extends AppCompatActivity {
             alertBuilder.setMessage("Delete User?");
 
             alertBuilder.setPositiveButton("Yes",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            List<Booking> deletedBookings = mLandingBookingDAO.getBookingsByUserId(mCurrentUser.getUserId());
-                            // Update flight availability and capacity for flights
-                            for(Booking booking : deletedBookings){
-                                Flight flight = mLandingFlightDAO.getFlightByFlightId(booking.getFlightId());
-                                mLandingFlightDAO.updateFlightCapacity(flight.getFlightId(), (flight.getCapacity() - booking.getQuantity()));
-                                if((flight.getCapacity() - booking.getQuantity()) < 200){
-                                    mLandingFlightDAO.updateFlightAvailability(flight.getFlightId(), 0);
-                                }
-                                mLandingBookingDAO.delete(booking);
+                    (dialogInterface, i) -> {
+                        List<Booking> deletedBookings = mLandingBookingDAO.getBookingsByUserId(mCurrentUser.getUserId());
+                        // Update flight availability and capacity for flights
+                        for(Booking booking : deletedBookings){
+                            Flight flight = mLandingFlightDAO.getFlightByFlightId(booking.getFlightId());
+                            mLandingFlightDAO.updateFlightCapacity(flight.getFlightId(), (flight.getCapacity() - booking.getQuantity()));
+                            if((flight.getCapacity() - booking.getQuantity()) < 200){
+                                mLandingFlightDAO.updateFlightAvailability(flight.getFlightId(), 0);
                             }
-                            // All bookings by the user via user id are now deleted
-                            mLandingUserDAO.delete(mCurrentUser);
-                            Intent intent = MainActivity.getIntent(getApplicationContext());
-                            startActivity(intent);
+                            mLandingBookingDAO.delete(booking);
                         }
+                        // All bookings by the user via user id are now deleted
+                        mLandingUserDAO.delete(mCurrentUser);
+                        Intent intent = MainActivity.getIntent(getApplicationContext());
+                        startActivity(intent);
                     });
 
             alertBuilder.setNegativeButton("No",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            // something, don't log out
-                            toastMaker("You're Still Here?");
-                        }
+                    (dialogInterface, i) -> {
+                        // something, don't log out
+                        toastMaker("You're Still Here?");
                     });
 
             alertBuilder.setCancelable(true);
-            alertBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialogInterface) {
-                    toastMaker("You're Still Here?");
-                }
-            });
+            alertBuilder.setOnCancelListener(dialogInterface -> toastMaker("You're Still Here?"));
 
             alertBuilder.create().show();
             return true;
@@ -225,10 +189,6 @@ public class LandingActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    public static Intent getIntent(Context context){
-        Intent intent = new Intent(context, LandingActivity.class);
-        return intent;
-    }
 
     public static Intent getIntent(Context context, String username){
         Intent intent = new Intent(context, LandingActivity.class);

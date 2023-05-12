@@ -16,7 +16,7 @@ import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.BookingDAO;
 import com.example.project2.DB.FlightDAO;
 import com.example.project2.databinding.ActivityEditFlightBinding;
-import com.example.project2.databinding.ActivityLandingBinding;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,36 +92,27 @@ public class EditFlightActivity extends AppCompatActivity {
         refreshDisplay(currentFlightNumber);
 
         // Add onClickListener for back button
-        mEditFlightBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = AdminActionActivity.getIntent(getApplicationContext(), currentUsername);
-                startActivity(intent);
-            }
+        mEditFlightBackButton.setOnClickListener(view -> {
+            Intent intent = AdminActionActivity.getIntent(getApplicationContext(), currentUsername);
+            startActivity(intent);
         });
 
 
-        mEditFlightRemoveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Make a function for removing flight;
-                removeFlight(currentFlightNumber);
-                Intent intent = AdminActionActivity.getIntent(getApplicationContext(), currentUsername);
-                startActivity(intent);
-            }
+        mEditFlightRemoveButton.setOnClickListener(view -> {
+            // Make a function for removing flight;
+            removeFlight(currentFlightNumber);
+            Intent intent = AdminActionActivity.getIntent(getApplicationContext(), currentUsername);
+            startActivity(intent);
         });
 
 
         // Add onClickListener for edit flight button
         // Check which radio button was checked
-        mEditFlightEditButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Make function for editing flight
-                if(editFlight(currentFlightNumber)){
-                    Intent intent = AdminActionActivity.getIntent(getApplicationContext(), currentUsername);
-                    startActivity(intent);
-                }
+        mEditFlightEditButton.setOnClickListener(view -> {
+            // Make function for editing flight
+            if(editFlight(currentFlightNumber)){
+                Intent intent = AdminActionActivity.getIntent(getApplicationContext(), currentUsername);
+                startActivity(intent);
             }
         });
     }
@@ -201,10 +192,6 @@ public class EditFlightActivity extends AppCompatActivity {
         mEditFlightDAO.delete(mCurrentFlight);
     }
 
-    public static Intent getIntent(Context context){
-        Intent intent = new Intent(context, EditFlightActivity.class);
-        return intent;
-    }
 
     public static Intent getIntent(Context context, String username, String flightNumber){
         Intent intent = new Intent(context, EditFlightActivity.class);

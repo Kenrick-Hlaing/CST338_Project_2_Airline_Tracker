@@ -62,24 +62,18 @@ public class AddFlightActivity extends AppCompatActivity {
         String currentUsername = getIntent().getStringExtra(ADD_FLIGHT_ACTIVITY_USER);
 
         // Add onClickListener for add flight
-        mAddFlightAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Add a function for adding a flight
-                if(addFlight()){
-                    Intent intent = AdminActionActivity.getIntent(getApplicationContext(), currentUsername);
-                    startActivity(intent);
-                }
+        mAddFlightAddButton.setOnClickListener(view -> {
+            // Add a function for adding a flight
+            if(addFlight()){
+                Intent intent = AdminActionActivity.getIntent(getApplicationContext(), currentUsername);
+                startActivity(intent);
             }
         });
 
         // Add onClickListener for back button
-        mAddFlightBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = AdminActionActivity.getIntent(getApplicationContext(), currentUsername);
-                startActivity(intent);
-            }
+        mAddFlightBackButton.setOnClickListener(view -> {
+            Intent intent = AdminActionActivity.getIntent(getApplicationContext(), currentUsername);
+            startActivity(intent);
         });
     }
 
@@ -134,10 +128,6 @@ public class AddFlightActivity extends AppCompatActivity {
         return true;
     }
 
-    public static Intent getIntent(Context context){
-        Intent intent = new Intent(context, AddFlightActivity.class);
-        return intent;
-    }
 
     public static Intent getIntent(Context context, String username){
         Intent intent = new Intent(context, AddFlightActivity.class);

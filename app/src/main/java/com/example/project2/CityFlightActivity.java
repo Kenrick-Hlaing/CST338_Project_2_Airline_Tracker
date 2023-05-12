@@ -138,22 +138,16 @@ public class CityFlightActivity extends AppCompatActivity {
         }
 
         // Add onClickListener for Back Button
-        mCityFlightBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = BookFlightActivity.getIntent(getApplicationContext(), currentUsername);
-                startActivity(intent);
-            }
+        mCityFlightBackButton.setOnClickListener(view -> {
+            Intent intent = BookFlightActivity.getIntent(getApplicationContext(), currentUsername);
+            startActivity(intent);
         });
 
         // Add an onClickListener for book flight button
-        mCityFlightBookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(bookFlight()){
-                    Intent intent = LandingActivity.getIntent(getApplicationContext(), currentUsername);
-                    startActivity(intent);
-                }
+        mCityFlightBookButton.setOnClickListener(view -> {
+            if(bookFlight()){
+                Intent intent = LandingActivity.getIntent(getApplicationContext(), currentUsername);
+                startActivity(intent);
             }
         });
     }

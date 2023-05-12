@@ -15,7 +15,6 @@ import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.UserDAO;
 import com.example.project2.databinding.ActivityMainBinding;
 
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,19 +55,11 @@ public class MainActivity extends AppCompatActivity {
                 .build()
                 .UserDAO();
 
-        mLogIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LogIn();
-            }
-        });
+        mLogIn.setOnClickListener(view -> LogIn());
 
-        mSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = SignUpActivity.getIntent(getApplicationContext());
-                startActivity(intent);
-            }
+        mSignUp.setOnClickListener(view -> {
+            Intent intent = SignUpActivity.getIntent(getApplicationContext());
+            startActivity(intent);
         });
     }
 
@@ -85,19 +76,11 @@ public class MainActivity extends AppCompatActivity {
             mMainMessageDisplay.setText(R.string.incorrect_user_cred_text);
             mMainMessageDisplay.setVisibility(View.VISIBLE);
             // The user is not in the database
-            return;
         }
     }
 
 
-    public static Intent getIntent(Context context, String username){
-        Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra(MAIN_ACTIVITY_USER, username);
-        return intent;
-    }
-
     public static Intent getIntent(Context context){
-        Intent intent = new Intent(context, MainActivity.class);
-        return intent;
+        return new Intent(context, MainActivity.class);
     }
 }

@@ -18,7 +18,6 @@ import com.example.project2.DB.FlightDAO;
 import com.example.project2.DB.UserDAO;
 import com.example.project2.databinding.ActivityBookFlightBinding;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,7 +87,7 @@ public class BookFlightActivity extends AppCompatActivity {
             StringBuilder sb = new StringBuilder();
             for(Flight flight : mFlightList){
                 if(flight.getIsFull() == 0){
-                    sb.append(flight.toString());
+                    sb.append(flight);
                 }
             }
             mBookFlightListDisplay.setText(sb.toString());
@@ -121,43 +120,34 @@ public class BookFlightActivity extends AppCompatActivity {
 //        }
 
         // Add an onClickListener for 'Back' button
-        mBookFlightBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = LandingActivity.getIntent(getApplicationContext(), currentUsername);
-                startActivity(intent);
-            }
+        mBookFlightBackButton.setOnClickListener(view -> {
+            Intent intent = LandingActivity.getIntent(getApplicationContext(), currentUsername);
+            startActivity(intent);
         });
 
         // Add an onClickListener for Book Flight By City Button
-        mBookFlightByCityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String enteredCity = mBookFlightByCity.getText().toString();
-                if(cityList.contains(enteredCity)){
-                    // Intent to CityFlightActivity
-                    Intent intent = CityFlightActivity.getIntent(getApplicationContext(), currentUsername, enteredCity);
-                    startActivity(intent);
-                } else if(enteredCity.equals("")){
-                    mBookFlightMessageDisplay.setText(R.string.book_flight_error_no_city);
-                    mBookFlightMessageDisplay.setVisibility(View.VISIBLE);
-                } else {
-                    mBookFlightMessageDisplay.setText(R.string.book_flight_error_invalid_city);
-                    mBookFlightMessageDisplay.setVisibility(View.VISIBLE);
-                }
+        mBookFlightByCityButton.setOnClickListener(view -> {
+            String enteredCity = mBookFlightByCity.getText().toString();
+            if(cityList.contains(enteredCity)){
+                // Intent to CityFlightActivity
+                Intent intent = CityFlightActivity.getIntent(getApplicationContext(), currentUsername, enteredCity);
+                startActivity(intent);
+            } else if(enteredCity.equals("")){
+                mBookFlightMessageDisplay.setText(R.string.book_flight_error_no_city);
+                mBookFlightMessageDisplay.setVisibility(View.VISIBLE);
+            } else {
+                mBookFlightMessageDisplay.setText(R.string.book_flight_error_invalid_city);
+                mBookFlightMessageDisplay.setVisibility(View.VISIBLE);
             }
         });
 
         // Add a onClickListener for add by flight number button
-        mBookFlightByNumberButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Call a function for booking by flight number
-                // Pass String from mBookFlightByFlightNumber
-                if(byFlightNumber()){
-                    Intent intent = LandingActivity.getIntent(getApplicationContext(), currentUsername);
-                    startActivity(intent);
-                }
+        mBookFlightByNumberButton.setOnClickListener(view -> {
+            // Call a function for booking by flight number
+            // Pass String from mBookFlightByFlightNumber
+            if(byFlightNumber()){
+                Intent intent = LandingActivity.getIntent(getApplicationContext(), currentUsername);
+                startActivity(intent);
             }
         });
     }
@@ -225,10 +215,6 @@ public class BookFlightActivity extends AppCompatActivity {
         return false;
     }
 
-    public static Intent getIntent(Context context){
-        Intent intent = new Intent(context, BookFlightActivity.class);
-        return intent;
-    }
 
     public static Intent getIntent(Context context, String username){
         Intent intent = new Intent(context, BookFlightActivity.class);
